@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using MovieApp.Models;
 
 namespace MovieApp.Models
 {
@@ -24,5 +25,9 @@ namespace MovieApp.Models
         public int NumberInStock { get; set; }
 
         public int NumberAvailable { get; set; }
+
+        public int GenreId { get; set; }
+
+        public Genre Genre { get; set; }
     }
 }
