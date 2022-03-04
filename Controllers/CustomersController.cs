@@ -24,8 +24,8 @@ namespace MovieApp.Controllers
             };
 
             var customersList = new List<Customer>();
-            //customersList.Add(customer1);
-            //customersList.Add(customer2);
+            customersList.Add(customer1);
+            customersList.Add(customer2);
 
             var customers = new CustomersViewModel
             {
