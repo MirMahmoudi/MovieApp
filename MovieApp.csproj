@@ -192,6 +192,10 @@
     <Compile Include="Migrations\202203041442093_CreateMembershipTypesTableAndConnectedToCustomersTable.designer.cs">
       <DependentUpon>202203041442093_CreateMembershipTypesTableAndConnectedToCustomersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202203041450154_CreateGenresTableAndConnectedToMoviesTable.cs" />
+    <Compile Include="Migrations\202203041450154_CreateGenresTableAndConnectedToMoviesTable.designer.cs">
+      <DependentUpon>202203041450154_CreateGenresTableAndConnectedToMoviesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -292,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202203041442093_CreateMembershipTypesTableAndConnectedToCustomersTable.resx">
       <DependentUpon>202203041442093_CreateMembershipTypesTableAndConnectedToCustomersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202203041450154_CreateGenresTableAndConnectedToMoviesTable.resx">
+      <DependentUpon>202203041450154_CreateGenresTableAndConnectedToMoviesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
