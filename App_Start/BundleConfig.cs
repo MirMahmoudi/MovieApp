@@ -23,8 +23,24 @@ namespace MovieApp
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      //"~/Content/bootstrap.css",
+                      "~/Content/bootstrap-cerulean.css",
+                      //"~/Content/bootstrap-cosmo.css",00
+                      //"~/Content/bootstrap-cyborg.css",
+                      //"~/Content/bootstrap-darkly.css",
+                      //"~/Content/bootstrap-flatly.css",
+                      //"~/Content/bootstrap-journal.css",
+                      //"~/Content/bootstrap-lumen.css",
+                      //"~/Content/bootstrap-paper.css",000
+                      //"~/Content/bootstrap-readable.css",
+                      //"~/Content/bootstrap-sandstone.css",
+                      //"~/Content/bootstrap-simplex.css",
+                      //"~/Content/bootstrap-slate.css",
+                      //"~/Content/bootstrap-spacelab.css",00
+                      //"~/Content/bootstrap-superhero.css",
+                      //"~/Content/bootstrap-united.css",
+                      //"~/Content/bootstrap-yeti.css",
+                      "~/Content/Site.css"));
         }
     }
 }

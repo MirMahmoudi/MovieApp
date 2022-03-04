@@ -219,8 +219,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appLogo.ico" />
+    <Content Include="Content\bootstrap-cerulean.css" />
+    <Content Include="Content\bootstrap-cosmo.css" />
+    <Content Include="Content\bootstrap-cyborg.css" />
+    <Content Include="Content\bootstrap-darkly.css" />
+    <Content Include="Content\bootstrap-flatly.css" />
+    <Content Include="Content\bootstrap-journal.css" />
+    <Content Include="Content\bootstrap-lumen.css" />
+    <Content Include="Content\bootstrap-paper.css" />
+    <Content Include="Content\bootstrap-readable.css" />
+    <Content Include="Content\bootstrap-sandstone.css" />
+    <Content Include="Content\bootstrap-simplex.css" />
+    <Content Include="Content\bootstrap-slate.css" />
+    <Content Include="Content\bootstrap-spacelab.css" />
+    <Content Include="Content\bootstrap-superhero.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-united.css" />
+    <Content Include="Content\bootstrap-yeti.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
