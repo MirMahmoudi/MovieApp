@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using MovieApp.Models;
 
 namespace MovieApp.Models
 {
@@ -19,5 +20,9 @@ namespace MovieApp.Models
         public DateTime Birthdate { get; set; }
 
         public bool IsSubscribedNewsLetter { get; set; }
+
+        public int MembershipTypeId { get; set; }
+
+        public MembershipType MembershipType { get; set; }
     }
 }
