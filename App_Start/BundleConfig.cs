@@ -40,7 +40,7 @@ namespace MovieApp
                       //"~/Content/bootstrap-superhero.css",
                       //"~/Content/bootstrap-united.css",
                       //"~/Content/bootstrap-yeti.css",
-                      "~/Content/Site.css"));
+                      "~/Content/site.css"));
         }
     }
 }
