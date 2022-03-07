@@ -1,0 +1,21 @@
+﻿@model MovieApp.ViewModels.CustomersViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Customer.Name</h2>
+
+<ul>
+    <li>Membershipt Type: @Model.Customer.MembershipType.Name</li>
+    @if (Model.Customer.Birthdate.HasValue)
+    {
+        <li>Birth Date: @Model.Customer.Birthdate.Value.ToLongDateString()</li>
+    }
+    @if (Model.Customer.IsSubscribedNewsLetter)
+    {
+        <li>Subscribed NewsLetter: <i>Yes</i></li>
+    }
+</ul>
+

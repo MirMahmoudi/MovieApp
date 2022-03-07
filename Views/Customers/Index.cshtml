@@ -1,11 +1,15 @@
 ﻿@model MovieApp.ViewModels.CustomersViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Customers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Customers</h2>
+
+<p>
+    @Html.ActionLink("NEW CUSTOMER", "New", "Customers", null, new { @class = "btn btn-primary" })
+</p>
 
 @if (Model.Customers.Count == 0)
 {
@@ -17,15 +21,17 @@ else
         <thead>
             <tr>
                 <th>Customer</th>
-                @*<th>Membership Type</th>*@
+                <th>Membership Type</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var customer in Model.Customers)
             {
                 <tr>
-                    <td>@customer.Name</td>
-                    @*<td>@customer.MembershipType.Name</td>*@
+                    <td>
+                        @Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, new { @class = "btn-link" })
+                    </td>
+                    <td>@customer.MembershipType.Name</td>
                 </tr>
             }
         </tbody>
