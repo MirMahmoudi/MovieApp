@@ -44,7 +44,7 @@ namespace MovieApp.Controllers
             return View(movie);
         }
 
-        // GET: Movie Form
+        // GET: /Movies/New
         public ActionResult New()
         {
             var movieFormViewModel = new MovieFormViewModel { Genres = _context.Genres };
@@ -52,7 +52,7 @@ namespace MovieApp.Controllers
             return View("MovieForm", movieFormViewModel);
         }
 
-        // POST: Movie Form for Create/Add
+        // POST: /Movies/New
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult New(MovieFormViewModel movie)
@@ -85,7 +85,7 @@ namespace MovieApp.Controllers
             return View("MovieForm", movieFormViewModel);
         }
 
-        // GET: Movie for Edit/Update
+        // GET: /Movies/Edit/id
         public ActionResult Edit(int id)
         {
             var movieInDb = _context.Movies
@@ -103,7 +103,7 @@ namespace MovieApp.Controllers
             return View("MovieForm", movie);
         }
 
-        // POST: Movie for Edit/Update
+        // POST: /Movies/Edit/id
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, MovieFormViewModel movie)
