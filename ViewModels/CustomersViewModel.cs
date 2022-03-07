@@ -8,6 +8,7 @@ namespace MovieApp.ViewModels
 {
     public class CustomersViewModel
     {
+        public Customer Customer { get; set; }
         public List<Customer> Customers { get; set; }
     }
 }
