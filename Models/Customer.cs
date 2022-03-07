@@ -17,7 +17,7 @@ namespace MovieApp.Models
         public string Name { get; set; }
 
         [Column(TypeName = "datetime2")]
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
 
         public bool IsSubscribedNewsLetter { get; set; }
 
