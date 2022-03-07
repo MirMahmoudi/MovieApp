@@ -41,7 +41,7 @@ namespace MovieApp.ViewModels
             Id = 0;
         }
 
-        public MovieFormViewModel(MovieFormViewModel mvoie)
+        public MovieFormViewModel(Movie mvoie)
         {
             Id = mvoie.Id;
             Name = mvoie.Name;
@@ -50,7 +50,7 @@ namespace MovieApp.ViewModels
             NumberInStock = mvoie.NumberInStock;
         }
 
-        public MovieFormViewModel(Movie mvoie)
+        public MovieFormViewModel(MovieFormViewModel mvoie)
         {
             Id = mvoie.Id;
             Name = mvoie.Name;
