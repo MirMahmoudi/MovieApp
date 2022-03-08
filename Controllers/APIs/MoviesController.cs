@@ -21,7 +21,7 @@ namespace MovieApp.Controllers.APIs
         }
 
         // GET: /api/Movies
-        public IEnumerable<MovieDto> GetMovies()
+        public IHttpActionResult GetMovies()
         {
             var moviesDto = _context.Movies
                 .Include(m => m.Genre)
@@ -29,27 +29,27 @@ namespace MovieApp.Controllers.APIs
                 .Select(Mapper.Map<Movie, MovieDto>);
 
             if (moviesDto == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            return moviesDto;
+            return Ok(moviesDto);
         }
 
         // GET: /api/Movies/id
-        public MovieDto GetMovie(int id)
+        public IHttpActionResult GetMovie(int id)
         {
             var movieInDb = _context.Movies
                 .Include(m => m.Genre)
                 .SingleOrDefault(m => m.Id == id);
 
             if (movieInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            return (Mapper.Map<Movie, MovieDto>(movieInDb));
+            return Ok(Mapper.Map<Movie, MovieDto>(movieInDb));
         }
 
         // POST: /api/Movies
         [HttpPost]
-        public MovieDto CreateMovie(MovieDto movieDto)
+        public IHttpActionResult CreateMovie(MovieDto movieDto)
         {
             if (ModelState.IsValid)
             {
@@ -61,45 +61,47 @@ namespace MovieApp.Controllers.APIs
                 _context.SaveChanges();
 
                 movieDto.Id = movie.Id;
-                return movieDto;
+
+                // URI: Unified Resource Identifier
+                return Created(new Uri($"{Request.RequestUri}{movie.Id}"), movieDto);
             };
 
-            throw new HttpResponseException(HttpStatusCode.BadRequest);
+            return BadRequest();
         }
 
         // PUT: /api/Movies/id
         [HttpPut]
-        public MovieDto UpdateMovie(int id, MovieDto movieDto)
+        public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
             if (ModelState.IsValid)
             {
                 var movieInDb = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
 
                 if (movieInDb == null)
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                    return NotFound();
 
                 Mapper.Map(movieDto, movieInDb);
 
                 _context.SaveChanges();
 
-                return movieDto;
+                return Ok(movieDto);
             };
 
             throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
 
         // DELETE: /api/Movies/id
-        public MovieDto DeleteMovie(int id)
+        public IHttpActionResult DeleteMovie(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
 
             if (movieInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
             _context.Movies.Remove(movieInDb);
             _context.SaveChanges();
 
-            return Mapper.Map<Movie, MovieDto>(movieInDb);
+            return Ok(Mapper.Map<Movie, MovieDto>(movieInDb));
         }
     }
 }
