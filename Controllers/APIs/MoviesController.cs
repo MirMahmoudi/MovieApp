@@ -5,8 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using MovieApp.Models;
-using MovieApp.ViewModels;
+using MovieApp.Dtos;
 using System.Data.Entity;
+using AutoMapper;
 
 namespace MovieApp.Controllers.APIs
 {
@@ -20,18 +21,21 @@ namespace MovieApp.Controllers.APIs
         }
 
         // GET: /api/Movies
-        public IEnumerable<Movie> GetMovies()
+        public IEnumerable<MovieDto> GetMovies()
         {
-            var moviesInDb = _context.Movies.Include(m => m.Genre).ToList();
+            var moviesDto = _context.Movies
+                .Include(m => m.Genre)
+                .ToList()
+                .Select(Mapper.Map<Movie, MovieDto>);
 
-            if (moviesInDb == null)
+            if (moviesDto == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return moviesInDb;
+            return moviesDto;
         }
 
         // GET: /api/Movies/id
-        public Movie GetMovie(int id)
+        public MovieDto GetMovie(int id)
         {
             var movieInDb = _context.Movies
                 .Include(m => m.Genre)
@@ -40,25 +44,24 @@ namespace MovieApp.Controllers.APIs
             if (movieInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return movieInDb;
+            return (Mapper.Map<Movie, MovieDto>(movieInDb));
         }
 
         // POST: /api/Movies
         [HttpPost]
-        public Movie CreateMovie(Movie movie)
+        public MovieDto CreateMovie(MovieDto movieDto)
         {
             if (ModelState.IsValid)
             {
-                var movieInDb = movie;
-                movieInDb.DateAdded = DateTime.Now;
-                movieInDb.NumberAvailable = movie.NumberAvailable != 0 ?
-                    movie.NumberAvailable :
-                    movie.NumberInStock;
+                var movie = Mapper.Map<MovieDto, Movie>(movieDto);
+                movie.DateAdded = DateTime.Now;
+                movieDto.DateAdded = DateTime.Now;
 
-                _context.Movies.Add(movieInDb);
+                _context.Movies.Add(movie);
                 _context.SaveChanges();
 
-                return movieInDb;
+                movieDto.Id = movie.Id;
+                return movieDto;
             };
 
             throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -66,31 +69,27 @@ namespace MovieApp.Controllers.APIs
 
         // PUT: /api/Movies/id
         [HttpPut]
-        public Movie UpdateMovie(int id, Movie movie)
+        public MovieDto UpdateMovie(int id, MovieDto movieDto)
         {
             if (ModelState.IsValid)
             {
-                var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
+                var movieInDb = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
 
                 if (movieInDb == null)
                     throw new HttpResponseException(HttpStatusCode.NotFound);
 
-                movieInDb.Name = movie.Name;
-                movieInDb.ReleaseDate = movie.ReleaseDate;
-                movieInDb.GenreId = movie.GenreId;
-                movieInDb.NumberInStock = movie.NumberInStock;
-                movieInDb.NumberAvailable = movie.NumberAvailable;
+                Mapper.Map(movieDto, movieInDb);
 
                 _context.SaveChanges();
 
-                return movieInDb;
+                return movieDto;
             };
 
             throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
 
         // DELETE: /api/Movies/id
-        public Movie DeleteMovie(int id)
+        public MovieDto DeleteMovie(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
 
@@ -100,7 +99,7 @@ namespace MovieApp.Controllers.APIs
             _context.Movies.Remove(movieInDb);
             _context.SaveChanges();
 
-            return movieInDb;
+            return Mapper.Map<Movie, MovieDto>(movieInDb);
         }
     }
 }

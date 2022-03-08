@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
+using MovieApp.Dtos;
 using MovieApp.Models;
 
 namespace MovieApp.Controllers.APIs
@@ -19,20 +21,21 @@ namespace MovieApp.Controllers.APIs
         }
 
         // GET: /api/Customers
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers()
         {
-            var customers = _context.Customers
+            var customersDto = _context.Customers
                 .Include(c => c.MembershipType)
-                .ToList();
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
 
-            if(customers == null)
+            if(customersDto == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return customers;
+            return customersDto;
         }
 
         // GET: /api/Customers/id
-        public Customer GetCustomer(int id)
+        public CustomerDto GetCustomer(int id)
         {
             var customerInDb = _context.Customers
                 .Include(c => c.MembershipType)
@@ -41,19 +44,21 @@ namespace MovieApp.Controllers.APIs
             if (customerInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return customerInDb;
+            return Mapper.Map<Customer, CustomerDto>(customerInDb);
         }
 
         // POST: /api/Customers
         [HttpPost]
-        public Customer CreateCustomer(Customer customer)
+        public CustomerDto CreateCustomer(CustomerDto customerDto)
         {
             if (ModelState.IsValid)
             {
+                var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
                 _context.Customers.Add(customer);
                 _context.SaveChanges();
 
-                return customer;
+                customerDto.Id = customer.Id;
+                return customerDto;
             };
 
             throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -61,23 +66,22 @@ namespace MovieApp.Controllers.APIs
 
         // PUT: /api/Customers/id
         [HttpPut]
-        public Customer UpdateCustomer(int id, Customer customer)
+        public CustomerDto UpdateCustomer(int id, CustomerDto customerDto)
         {
             if (ModelState.IsValid)
             {
-                var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
+                var customerInDb = _context.Customers
+                    .Include(c => c.MembershipType)
+                    .SingleOrDefault(c => c.Id == id);
 
                 if (customerInDb == null)
                     throw new HttpResponseException(HttpStatusCode.NotFound);
 
-                customerInDb.Name = customer.Name;
-                customerInDb.Birthdate = customer.Birthdate;
-                customerInDb.IsSubscribedNewsLetter = customer.IsSubscribedNewsLetter;
-                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                Mapper.Map(customerDto, customerInDb);
 
                 _context.SaveChanges();
 
-                return customerInDb;
+                return customerDto;
             };
 
             throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -85,7 +89,7 @@ namespace MovieApp.Controllers.APIs
 
         // DELETE: /api/Customers/id
         [HttpDelete]
-        public Customer DeleteCustomer(int id)
+        public CustomerDto DeleteCustomer(int id)
         {
             var customerInDb = _context.Customers.SingleOrDefault(c =>c.Id == id);
 
@@ -95,7 +99,7 @@ namespace MovieApp.Controllers.APIs
             _context.Customers.Remove(customerInDb);
             _context.SaveChanges();
 
-            return customerInDb;
+            return Mapper.Map<Customer, CustomerDto>(customerInDb);
         }
     }
 }
