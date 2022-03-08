@@ -17,11 +17,12 @@
 }
 else
 {
-    <table class="table table-bordered table-hover">
+    <table id="customers" class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Customer</th>
                 <th>Membership Type</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -32,9 +33,30 @@ else
                         @Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, new { @class = "btn-link" })
                     </td>
                     <td>@customer.MembershipType.Name</td>
+                    <td><button customer-id="@customer.Id" class="btn-link js-delete">Delete</button></td>
                 </tr>
             }
         </tbody>
     </table>
 }
 
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#customers").on("click", ".js-delete", function () {
+                let button = $(this);
+
+                if (confirm("Are you sure to delete?")) {
+                    $.ajax({
+                        url: `/api/Customers/${button.attr("customer-id")}`,
+                        method: "DELETE",
+                        success: function () {
+                            button.parents("tr").remove();
+                        }
+                    });
+                };
+            })
+        });
+    </script>
+}
