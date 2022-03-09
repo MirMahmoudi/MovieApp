@@ -21,12 +21,12 @@ namespace MovieApp.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            var movies = new MoviesViewModel
-            {
-                Movies = _context.Movies.Include(m => m.Genre).ToList()
-            };
-
-            return View(movies);
+            //var movies = new MoviesViewModel
+            //{
+            //    Movies = _context.Movies.Include(m => m.Genre).ToList()
+            //};
+            //return View(movies);
+            return View();
         }
 
         //GET: Movies/Details/id
