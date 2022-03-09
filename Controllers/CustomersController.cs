@@ -21,14 +21,7 @@ namespace MovieApp.Controllers
         // GET: /Customers
         public ActionResult Index()
         {
-            var customers = new CustomersViewModel
-            {
-                Customers = _context.Customers
-                .Include(c => c.MembershipType)
-                .ToList()
-            };
-
-            return View(customers);
+            return View();
         }
 
         // GET: /Customers/Details/id

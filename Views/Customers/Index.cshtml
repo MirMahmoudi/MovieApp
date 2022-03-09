@@ -1,6 +1,4 @@
-﻿@model MovieApp.ViewModels.CustomersViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Customers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,39 +9,47 @@
     @Html.ActionLink("NEW CUSTOMER", "New", "Customers", null, new { @class = "btn btn-primary" })
 </p>
 
-@if (Model.Customers.Count == 0)
-{
-    <p>There is no customer that was registered!</p>
-}
-else
-{
-    <table id="customers" class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Customer</th>
-                <th>Membership Type</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in Model.Customers)
-            {
-                <tr>
-                    <td>
-                        @Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, new { @class = "btn-link" })
-                    </td>
-                    <td>@customer.MembershipType.Name</td>
-                    <td><button customer-id="@customer.Id" class="btn-link js-delete">Delete</button></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<table id="customers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Membership Type</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
+            let table = $("#customers").DataTable({
+                ajax: {
+                    url: "/api/Customers",
+                    method: "GET",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, customer) {
+                            return `<a href="/customers/edit/${customer.id}">${customer.name}</a>`;
+                        }
+                    },
+                    {
+                        data: "membershipType.name"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return `<button customer-id="${data}" class="btn-link js-delete">Delete</button>`;
+                        }
+                    }
+                ]
+            });
+
             $("#customers").on("click", ".js-delete", function () {
                 let button = $(this);
 
@@ -53,7 +59,7 @@ else
                             url: `/api/Customers/${button.attr("customer-id")}`,
                             method: "DELETE",
                             success: function () {
-                                button.parents("tr").remove();
+                                table.row(button.parents("tr")).remove().draw();
                             }
                         });
                     };
