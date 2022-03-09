@@ -8,6 +8,10 @@ namespace MovieApp.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Art Certificate")]
+        public string ArtCertificate { get; set; }
     }
 
     public class ExternalLoginListViewModel
