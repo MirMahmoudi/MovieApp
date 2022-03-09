@@ -26,7 +26,10 @@ namespace MovieApp.Controllers
             //    Movies = _context.Movies.Include(m => m.Genre).ToList()
             //};
             //return View(movies);
-            return View();
+            if(User.IsInRole(RoleName.CanManageMovies))
+                return View("List");
+
+            return View("ReadOnlyList");
         }
 
         //GET: Movies/Details/id
@@ -45,6 +48,7 @@ namespace MovieApp.Controllers
         }
 
         // GET: /Movies/New
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
         {
             var movieFormViewModel = new MovieFormViewModel { Genres = _context.Genres };
@@ -55,6 +59,7 @@ namespace MovieApp.Controllers
         // POST: /Movies/New
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New(MovieFormViewModel movie)
         {
             if (ModelState.IsValid)
@@ -86,6 +91,7 @@ namespace MovieApp.Controllers
         }
 
         // GET: /Movies/Edit/id
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int id)
         {
             var movieInDb = _context.Movies
@@ -106,6 +112,7 @@ namespace MovieApp.Controllers
         // POST: /Movies/Edit/id
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult Edit(int id, MovieFormViewModel movie)
         {
             if (ModelState.IsValid)
