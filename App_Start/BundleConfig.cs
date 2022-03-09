@@ -11,7 +11,9 @@ namespace MovieApp
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
-                        "~/Scripts/bootbox.js"));
+                        "~/Scripts/bootbox.js",
+                        "~/Scripts/dataTables/jquery.dataTables.js",
+                        "~/Scripts/dataTables/dataTables.bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -23,14 +25,14 @@ namespace MovieApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       //"~/Content/bootstrap.css",
-                      "~/Content/bootstrap-cerulean.css",
+                      //"~/Content/bootstrap-cerulean.css",0
                       //"~/Content/bootstrap-cosmo.css",00
                       //"~/Content/bootstrap-cyborg.css",
                       //"~/Content/bootstrap-darkly.css",
                       //"~/Content/bootstrap-flatly.css",
                       //"~/Content/bootstrap-journal.css",
                       //"~/Content/bootstrap-lumen.css",
-                      //"~/Content/bootstrap-paper.css",000
+                      "~/Content/bootstrap-paper.css",
                       //"~/Content/bootstrap-readable.css",
                       //"~/Content/bootstrap-sandstone.css",
                       //"~/Content/bootstrap-simplex.css",
@@ -39,6 +41,7 @@ namespace MovieApp
                       //"~/Content/bootstrap-superhero.css",
                       //"~/Content/bootstrap-united.css",
                       //"~/Content/bootstrap-yeti.css",
+                      "~/Content/DataTables/css/dataTables.bootstrap.css",
                       "~/Content/site.css"));
         }
     }
