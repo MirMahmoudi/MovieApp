@@ -55,13 +55,13 @@ namespace MovieApp
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-               appId: "123",
-               appSecret: "456");
+               appId: "7449385658412555",
+               appSecret: "1f83b00b2bafee6be92cef85aa4d197b");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "789",
-                ClientSecret = "123"
+                ClientId = "333616282335-m8ud3chb5qtq2lb9brbf222jv1q79sf6.apps.googleusercontent.com",
+                ClientSecret = "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"
             });
         }
     }
