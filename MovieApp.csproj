@@ -596,6 +596,12 @@
       <DependentUpon>202203091906090_AddArtCertificateToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="MovieApp.Data\MovieApp.Data.csproj">
+      <Project>{0d875f48-bef7-4b3e-b31b-af5b0bfc40ad}</Project>
+      <Name>MovieApp.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
